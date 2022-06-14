@@ -1,6 +1,6 @@
 package ar.edu.utn.link.integrador.model;
 
-public class MedioDePago implements Promocion {
+public class MedioDePago extends Promocion {
 
 	MetodoDePago metodo;
 

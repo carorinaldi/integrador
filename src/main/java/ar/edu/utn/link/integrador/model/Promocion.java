@@ -1,7 +1,12 @@
 package ar.edu.utn.link.integrador.model;
 
-public interface Promocion {
-	public double descuento();
+public abstract class Promocion {
+	
+	public abstract double descuento();
+	
+	public void aplicarPromocion() {
+
+	}
 }
 
 

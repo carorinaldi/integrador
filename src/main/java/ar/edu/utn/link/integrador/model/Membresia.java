@@ -1,6 +1,6 @@
 package ar.edu.utn.link.integrador.model;
 
-public class Membresia implements Promocion{
+public class Membresia extends Promocion{
 	private Cliente unCliente;
 
 	public Membresia(Cliente unCliente) {

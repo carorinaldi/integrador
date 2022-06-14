@@ -1,4 +1,4 @@
-package ar.edu.utn.link.integrador.app;
+package ar.edu.utn.link.integrador.model;
 
 public enum TipoDocumento {
 	DNI, LC, LE, CI  

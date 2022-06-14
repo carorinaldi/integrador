@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import ar.edu.utn.link.integrador.app.TipoDocumento;
 import ar.edu.utn.link.integrador.model.Carrito;
 import ar.edu.utn.link.integrador.model.Cliente;
 import ar.edu.utn.link.integrador.model.Cupon;
@@ -18,6 +17,7 @@ import ar.edu.utn.link.integrador.model.MetodoDePago;
 import ar.edu.utn.link.integrador.model.OrdenDeCompra;
 import ar.edu.utn.link.integrador.model.Producto;
 import ar.edu.utn.link.integrador.model.Promocion;
+import ar.edu.utn.link.integrador.model.TipoDocumento;
 
 @SpringBootApplication
 public class IntegradorApplication2 {
@@ -26,12 +26,13 @@ public class IntegradorApplication2 {
 		SpringApplication.run(IntegradorApplication.class, args);
 
 		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>());
-
-		Cupon cupon1 = new Cupon("123abc", LocalDate.of(2022, 10, 30));
+		ArrayList<OrdenDeCompra> compras=null;
+		Cupon cupon1 = new Cupon("123abc", LocalDate.of(2022, 10, 30),true);
 		ArrayList<Promocion> cupones = new ArrayList<>();
 		cupones.add(cupon1);
-		Cliente carolina = new Cliente("1", "Carolina", TipoDocumento.DNI, "33996507", LocalDate.of(1988, 9, 10),
-				carrito1, true, cupones);
+		
+		Cliente carolina = new Cliente("Carolina", TipoDocumento.DNI, "33996507", LocalDate.of(1988, 9, 10),
+				carrito1, true,compras, cupones);
 
 		Producto smartTv = new Producto("1", "SmartTV", 20000);
 		Producto notebook = new Producto("2", "Notebook Dell", 50000);

@@ -2,41 +2,58 @@ package ar.edu.utn.link.integrador.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-import ar.edu.utn.link.integrador.app.TipoDocumento;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
-public class Cliente {
-	private String idCliente;
+@Entity
+public class Cliente extends Rol {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	@NotBlank
 	private String nombre;
+	private String apellido;
 	private TipoDocumento tipoDocumento;
 	private String nroDocumento;
 	private LocalDate fechaDeNacimiento;
-	//private ArrayList<MedioDePago2> mediosDePago;
+	// private ArrayList<MetodoDePago> mediosDePago;
+	@OneToOne
 	private Carrito carritoDeCompras;
 	private boolean esMiembro;
-	private ArrayList<OrdenDeCompra> comprasRealizadas;
+	@OneToMany
+	private List<OrdenDeCompra> comprasRealizadas;
 	private ArrayList<Promocion> promociones;
 
-	public Cliente(String idCliente, String nombre, TipoDocumento tipoDocumento, String nroDocumento,
+	public Cliente(@NotBlank String nombre, String apellido, TipoDocumento tipoDocumento, String nroDocumento,
 			LocalDate fechaDeNacimiento, Carrito carritoDeCompras, boolean esMiembro,
-			ArrayList<Promocion> promociones) {
+			ArrayList<OrdenDeCompra> comprasRealizadas, ArrayList<Promocion> promociones) {
 		super();
-		this.idCliente = idCliente;
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.tipoDocumento = tipoDocumento;
 		this.nroDocumento = nroDocumento;
 		this.fechaDeNacimiento = fechaDeNacimiento;
 		this.carritoDeCompras = carritoDeCompras;
 		this.esMiembro = esMiembro;
+		this.comprasRealizadas = comprasRealizadas;
 		this.promociones = promociones;
 	}
 
-	public String getIdCliente() {
-		return idCliente;
+	public Cliente() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setIdCliente(String idCliente) {
-		this.idCliente = idCliente;
+	public Cliente(Integer id) {
+		super(id);
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getNombre() {
@@ -45,6 +62,14 @@ public class Cliente {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public TipoDocumento getTipoDocumento() {
@@ -88,6 +113,10 @@ public class Cliente {
 	}
 
 	public boolean EsMiembro() {
+		return true;
+	}
+
+	public boolean isEsMiembro() {
 		return esMiembro;
 	}
 
@@ -107,29 +136,28 @@ public class Cliente {
 		carritoDeCompras.agregarProducto(unItem);
 	}
 
-	public OrdenDeCompra finalizarCompra(MedioDePago unMedio,Membresia membresia,Cupon unCupon) {
+	public OrdenDeCompra finalizarCompra(MedioDePago unMedio, Membresia membresia, Cupon unCupon) {
 		this.aplicarMedioDePago(unMedio);
 		this.CompraSegunMembresia(membresia);
 		this.aplicarCupon(unCupon);
 		OrdenDeCompra orden = new OrdenDeCompra(1, LocalDate.now(), carritoDeCompras.getSubtotal());
 		comprasRealizadas.add(orden);
 		return orden;
-	    //carritoDeCompras.vaciarCarrito();
+		// carritoDeCompras.vaciarCarrito();
 	}
-	
+
 	public void aplicarMedioDePago(MedioDePago unMedio) {
 		carritoDeCompras.aplicarPromocion(unMedio);
 	}
-	
+
 	public void CompraSegunMembresia(Membresia membresia) {
 		carritoDeCompras.aplicarPromocion(membresia);
 	}
-	
+
 	public void aplicarCupon(Cupon unCupon) {
+		// unCupon.usarCupon();
 		carritoDeCompras.aplicarPromocion(unCupon);
 		promociones.remove(unCupon);
 	}
-	
-	
 
 }
