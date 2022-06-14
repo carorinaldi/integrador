@@ -8,7 +8,7 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ar.edu.utn.link</groupId>
+	<groupId>ar.edu.utn.tplink</groupId>
 	<artifactId>integrador</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>integrador</name>
