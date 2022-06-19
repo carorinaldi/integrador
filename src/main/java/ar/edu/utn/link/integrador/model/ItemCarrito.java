@@ -1,11 +1,23 @@
 package ar.edu.utn.link.integrador.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class ItemCarrito {
-	private Producto producto;
-	private int cantidad;
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
+	@OneToOne
+	private Producto producto;
+	
+	private int cantidad;
+
 	double precio() {
-		return producto.getPrecio()*cantidad;
+		return producto.getPrecio() * cantidad;
 	}
 
 	public Producto getProducto() {
@@ -29,6 +41,17 @@ public class ItemCarrito {
 		this.producto = producto;
 		this.cantidad = cantidad;
 	}
-	
-	
+
+	public void serAgregado(Carrito carrito) throws NoHayStockException {
+		if(producto.getStock()<cantidad) {
+			throw new NoHayStockException("El producto se encuentra sin stock");
+		}
+		carrito.getItemsCarrito().add(this);
+	}
+
+	public void serQuitado(Carrito carrito) {
+		producto.agregarStock(cantidad);
+		
+	}
+
 }

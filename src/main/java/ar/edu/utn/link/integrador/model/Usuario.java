@@ -1,13 +1,42 @@
 package ar.edu.utn.link.integrador.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+
+@Entity
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	
+	@NotBlank
+	@Column(unique = true)
 	private String nombreUsuario;
+	
 	private String email;
+	
+	@NotBlank
 	private String password;
+	
+	@NotBlank
+	@OneToOne
 	private Rol rol;
 	
 	public Usuario() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNombreUsuario() {

@@ -1,19 +1,36 @@
 package ar.edu.utn.link.integrador.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Rol {
-	private Integer id;
-	
+public class Rol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	
+	@NotBlank
+	@Enumerated(EnumType.STRING)
+	private RolNombre rolNombre;
+
+	
+	public Rol() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Rol(RolNombre rolNombre) {
+		super();
+		this.rolNombre = rolNombre;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -22,14 +39,14 @@ public abstract class Rol {
 		this.id = id;
 	}
 
-	public Rol() {
-		super();
-		// TODO Auto-generated constructor stub
+	public RolNombre getRolNombre() {
+		return rolNombre;
 	}
 
-	public Rol(Integer id) {
-		super();
-		this.id = id;
+	public void setRolNombre(RolNombre rolNombre) {
+		this.rolNombre = rolNombre;
 	}
+	
+	
 
 }

@@ -19,6 +19,6 @@ public interface ClienteDTO {
 //	@Value("#{target.comprasRealizadas.size()")
 //	int cantComprasRealizadas();
 	
-	@Value("#{target.comprasRealizadas")
+	@Value("#{target.comprasRealizadas}")
 	List<OrdenDeCompra> getComprasRealizadas();
 }

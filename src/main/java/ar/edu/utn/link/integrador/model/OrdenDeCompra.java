@@ -14,9 +14,9 @@ public class OrdenDeCompra {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private LocalDate fecha;
-	private double monto;
-	// private int codPago;
-	// private String Estado; // puede ser un ENUM
+	private double subtotal;
+	private double total;
+	
 
 	public Integer getId() {
 		return id;
@@ -34,31 +34,39 @@ public class OrdenDeCompra {
 		this.fecha = fecha;
 	}
 
-	public double getMonto() {
-		return monto;
+	public double getSubtotal() {
+		return subtotal;
 	}
 
-	public void setMonto(double monto) {
-		this.monto = monto;
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
 	}
 
-	public OrdenDeCompra(Integer id, LocalDate fecha, double monto) {
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public OrdenDeCompra(LocalDate fecha, double subtotal, double total) {
 		super();
-		this.id = id;
 		this.fecha = fecha;
-		this.monto = monto;
+		this.subtotal = subtotal;
+		this.total = total;
+	}
+
+	public OrdenDeCompra(LocalDate fecha, double total) {
+		super();
+		this.fecha = fecha;
+		this.total = total;
 	}
 
 	public OrdenDeCompra() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	/*
-	 * public int getCodPago() { return codPago; } public void setCodPago(int
-	 * codPago) { this.codPago = codPago; } public String getEstado() { return
-	 * Estado; } public void setEstado(String estado) { Estado = estado; }
-	 */
 	
 
 }

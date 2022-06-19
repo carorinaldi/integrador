@@ -2,21 +2,52 @@ package ar.edu.utn.link.integrador.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Vendedor extends Rol {
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+public class Vendedor {
+	
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
 	private String nombre;
 	private String apellido;
+	@Enumerated(EnumType.STRING)
 	private TipoDocumento tipoDocumento;
 	private String nroDocumento;
 	private LocalDate fechaDeNacimiento;
-	private ArrayList<Proveedor> proveedores;
-	private OrdenDeCompra ordenes;
-	private ArrayList<Producto> productos;
-
+	private RolNombre rol = RolNombre.VENDEDOR;
 	
+	@OneToMany
+	private List<Proveedor> proveedores;
+	
+	@OneToMany
+	private List<OrdenDeCompra> ordenes;
+	
+	@OneToMany
+	private List<Producto> productos;
+	
+
+	public Vendedor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
 	public Vendedor(String nombre, String apellido, TipoDocumento tipoDocumento, String nroDocumento,
-			LocalDate fechaDeNacimiento, ArrayList<Proveedor> proveedores, OrdenDeCompra ordenes,
-			ArrayList<Producto> productos) {
+			LocalDate fechaDeNacimiento, List<Proveedor> proveedores, List<OrdenDeCompra> ordenes,
+			List<Producto> productos) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -28,14 +59,12 @@ public class Vendedor extends Rol {
 		this.productos = productos;
 	}
 
-	public Vendedor() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Integer getId() {
+		return id;
 	}
 
-	public Vendedor(Integer id) {
-		super(id);
-		// TODO Auto-generated constructor stub
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -78,29 +107,44 @@ public class Vendedor extends Rol {
 		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
-	public ArrayList<Proveedor> getProveedores() {
+	public List<Proveedor> getProveedores() {
 		return proveedores;
 	}
 
-	public void setProveedores(ArrayList<Proveedor> proveedores) {
+	public void setProveedores(List<Proveedor> proveedores) {
 		this.proveedores = proveedores;
 	}
 
-	public OrdenDeCompra getOrdenes() {
+	public List<OrdenDeCompra> getOrdenes() {
 		return ordenes;
 	}
 
-	public void setOrdenes(OrdenDeCompra ordenes) {
+	public void setOrdenes(List<OrdenDeCompra> ordenes) {
 		this.ordenes = ordenes;
 	}
 
-	public ArrayList<Producto> getProductos() {
+	public List<Producto> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(ArrayList<Producto> productos) {
+	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
+
+
+
+	public RolNombre getRol() {
+		return rol;
+	}
+
+
+
+	public void setRol(RolNombre rol) {
+		this.rol = rol;
+	}
+
+	
+
 
 //	void vincularse(Proveedor proveedor) {
 //		proveedores.add(proveedor);
