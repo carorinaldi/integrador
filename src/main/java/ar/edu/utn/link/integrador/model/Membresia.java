@@ -4,9 +4,10 @@ public class Membresia extends Promocion{
 	private Cliente unCliente;
 	private double descuento;
 
-	public Membresia(Cliente unCliente) {
+	public Membresia(Cliente unCliente,double descuento) {
 		super();
 		this.unCliente = unCliente;
+		this.descuento = descuento;
 	}
 	
 	public double descuento() {

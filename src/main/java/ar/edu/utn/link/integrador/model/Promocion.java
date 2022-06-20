@@ -13,7 +13,7 @@ public abstract class Promocion {
 	public abstract double descuento() throws NoSePuedeAplicarCuponException;
 	
 	public double aplicarPromocion(Carrito unCarrito) throws NoSePuedeAplicarCuponException {
-		return unCarrito.getSubtotal() - unCarrito.getSubtotal()*this.descuento();
+		return unCarrito.getSubtotal() * (1 - this.descuento());
 	}
 }
 

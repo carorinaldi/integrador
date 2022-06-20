@@ -1,6 +1,7 @@
 package ar.edu.utn.link.integrador.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,16 +13,17 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Carrito {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@OneToMany
-	private List<ItemCarrito> itemsCarrito;
-	
+	private Collection<ItemCarrito> itemsCarrito;
+
 	private double subtotal;
-	
+
 	@ManyToMany
-	private List<Promocion> promociones;
+	private Collection<Promocion> promociones;
 
 	public Carrito(List<ItemCarrito> items) {
 		super();
@@ -33,12 +35,10 @@ public class Carrito {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Carrito(Integer id, List<ItemCarrito> itemsCarrito, double subtotal, List<Promocion> promociones) {
-		super();
-		this.id = id;
+	public Carrito(Collection<ItemCarrito> itemsCarrito, double subtotal, Collection<Promocion> promociones) {
 		this.itemsCarrito = itemsCarrito;
 		this.subtotal = subtotal;
-		this.promociones=promociones;
+		this.promociones = promociones;
 	}
 
 	public Integer getId() {
@@ -49,11 +49,11 @@ public class Carrito {
 		this.id = id;
 	}
 
-	public List<ItemCarrito> getItemsCarrito() {
+	public Collection<ItemCarrito> getItemsCarrito() {
 		return itemsCarrito;
 	}
 
-	public void setItemsCarrito(List<ItemCarrito> itemsCarrito) {
+	public void setItemsCarrito(Collection<ItemCarrito> itemsCarrito) {
 		this.itemsCarrito = itemsCarrito;
 	}
 
@@ -64,39 +64,41 @@ public class Carrito {
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-	
-	public List<Promocion> getPromociones() {
+
+	public Collection<Promocion> getPromociones() {
 		return promociones;
 	}
 
-	public void setPromociones(List<Promocion> promociones) {
+	public void setPromociones(Collection<Promocion> promociones) {
 		this.promociones = promociones;
 	}
 
 	public void agregarProducto(ItemCarrito unItem) throws NoHayStockException {
-		//itemsCarrito.add(unItem);
-		unItem.serAgregado(this);
+		if (unItem.getProducto().getStock() < unItem.getCantidad()) {
+			throw new NoHayStockException("El producto se encuentra sin stock");
+		}
+		itemsCarrito.add(unItem);
 		subtotal += unItem.precio();
 	}
-	
+
 	public void quitarProducto(ItemCarrito unItem) {
-		unItem.serQuitado(this);
+		itemsCarrito.remove(unItem);
 		subtotal -= unItem.precio();
 	}
-	
+
 	public void agregarPromocion(Promocion promocion) {
 		promociones.add(promocion);
 	}
-	
+
 	public OrdenDeCompra terminarCompra() {
-		itemsCarrito.forEach(item->item.getProducto().reducirStock(item.getCantidad()));
-		return new OrdenDeCompra(LocalDate.now(), subtotal, this.precioTotal());
-		
+		itemsCarrito.forEach(item -> item.getProducto().reducirStock(item.getCantidad()));
+		return new OrdenDeCompra(LocalDate.now(), itemsCarrito, subtotal, this.precioTotal());
+
 	}
-	
-	public double precioTotal() { 
-		if(promociones.size()>0) {
-			return subtotal - promociones.stream().mapToDouble(promo->{
+
+	public double precioTotal() {
+		if (promociones.size() > 0) {
+			return promociones.stream().mapToDouble(promo -> {
 				try {
 					return promo.aplicarPromocion(this);
 				} catch (NoSePuedeAplicarCuponException e) {
@@ -109,10 +111,14 @@ public class Carrito {
 			return subtotal;
 		}
 	}
-	
-	public void aplicarPromocion(Promocion unaPromocion) throws NoSePuedeAplicarCuponException {
-		subtotal *= 1 - unaPromocion.descuento();
 
+//	public void aplicarPromocion(Promocion unaPromocion) throws NoSePuedeAplicarCuponException {
+//		subtotal *= 1 - unaPromocion.descuento();
+//
+//	}
+
+	public void contiene(Proveedor proveedor) {
+		itemsCarrito.stream().map(item -> item.getProducto().getProveedor()).anyMatch(x -> x.equals(proveedor));
 	}
 
 	public void vaciarCarrito() {

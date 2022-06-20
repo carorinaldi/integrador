@@ -8,12 +8,13 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class ItemCarrito {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@OneToOne
 	private Producto producto;
-	
+
 	private int cantidad;
 
 	double precio() {
@@ -40,18 +41,6 @@ public class ItemCarrito {
 		super();
 		this.producto = producto;
 		this.cantidad = cantidad;
-	}
-
-	public void serAgregado(Carrito carrito) throws NoHayStockException {
-		if(producto.getStock()<cantidad) {
-			throw new NoHayStockException("El producto se encuentra sin stock");
-		}
-		carrito.getItemsCarrito().add(this);
-	}
-
-	public void serQuitado(Carrito carrito) {
-		producto.agregarStock(cantidad);
-		
 	}
 
 }

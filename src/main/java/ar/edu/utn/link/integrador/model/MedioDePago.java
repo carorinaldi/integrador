@@ -5,9 +5,10 @@ public class MedioDePago extends Promocion {
 	private MetodoDePago metodo;
 	private double descuento;
 
-	public MedioDePago(MetodoDePago metodo) {
+	public MedioDePago(MetodoDePago metodo, double descuento) {
 		super();
 		this.metodo = metodo;
+		this.descuento = descuento;
 	}
 
 	public MetodoDePago getMetodo() {

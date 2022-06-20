@@ -108,4 +108,5 @@ public class Producto {
 	public void reducirStock(int cantidad) {
 		stock -= cantidad;
 	}
+	
 }

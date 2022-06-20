@@ -7,12 +7,16 @@ public class Cupon extends Promocion {
 	private LocalDate fechaVencimiento;
 	private boolean fueUsado;
 	private double descuento;
+	private Proveedor proveedor;
 
-	public Cupon(String codigoCupon, LocalDate fechaVencimiento, boolean fueUsado) {
+	public Cupon(String codigoCupon, LocalDate fechaVencimiento, boolean fueUsado, double descuento,
+			Proveedor proveedor) {
 		super();
 		this.codigoCupon = codigoCupon;
 		this.fechaVencimiento = fechaVencimiento;
 		this.fueUsado = fueUsado;
+		this.descuento = descuento;
+		this.proveedor = proveedor;
 	}
 
 	public String getCodigoCupon() {
@@ -39,6 +43,22 @@ public class Cupon extends Promocion {
 		this.fueUsado = fueUsado;
 	}
 
+	public double getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(double descuento) {
+		this.descuento = descuento;
+	}
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
 	public void usarCupon() {
 		fueUsado = true;
 	}
@@ -52,10 +72,14 @@ public class Cupon extends Promocion {
 		}
 		return descuento;
 	}
+	
+	
 
 	@Override
 	public double aplicarPromocion(Carrito unCarrito) throws NoSePuedeAplicarCuponException {
+		unCarrito.contiene(proveedor);
 		this.usarCupon();
-		return super.aplicarPromocion(unCarrito);
+		return unCarrito.getSubtotal() * (1 - this.descuento());
 	}
+
 }
