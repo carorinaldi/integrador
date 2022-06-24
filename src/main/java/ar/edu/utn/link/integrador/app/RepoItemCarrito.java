@@ -8,15 +8,17 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import ar.edu.utn.link.integrador.app.dtos.ItemCarritoDTO;
 import ar.edu.utn.link.integrador.app.dtos.ProductoDTO;
+import ar.edu.utn.link.integrador.model.ItemCarrito;
 import ar.edu.utn.link.integrador.model.Producto;
 
-@RepositoryRestResource(path="productos", excerptProjection = ProductoDTO.class)
-public interface RepoProducto extends PagingAndSortingRepository<Producto, Integer>{
+@RepositoryRestResource(path="items", excerptProjection = ItemCarritoDTO.class)
+public interface RepoItemCarrito extends PagingAndSortingRepository<ItemCarrito, Integer>{
 	
-	Optional<Producto> findByNombre(String nombre);
+	Optional<ItemCarrito> findById(Integer id);
 	
-	Page<Producto> findAll(Pageable page);
+	Page<ItemCarrito> findAll(Pageable page);
 	
 	@Override
 	@RestResource(exported=false)
@@ -24,7 +26,7 @@ public interface RepoProducto extends PagingAndSortingRepository<Producto, Integ
 	
 	@Override
 	@RestResource(exported=false)
-	void delete(Producto entity);
+	void delete(ItemCarrito entity);
 
-	Object save(Optional<Producto> productoEncontrado);
+
 }

@@ -32,10 +32,10 @@ public class CarritoTest {
 		Proveedor casio = new Proveedor("Casio", "Av. Corrientes 456 Oficina 64, C1043 CABA", "30-86411111-4",
 				"011 5252-3434", "casio@casio.com");
 
-		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5);
-		Producto calculadora = new Producto("Calculadora", 500.0, casio, 20);
-		Producto reloj = new Producto("SmartWatch", 500.0, samsung, 8);
-
+		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5,"linkImagen");
+		Producto calculadora = new Producto("Calculadora", 500.0, casio, 20,"linkImagen");
+		Producto reloj = new Producto("SmartWatch", 500.0, samsung, 8,"linkImagen");
+		
 		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>(), 0, new ArrayList<Promocion>());
 		carrito1.agregarProducto(new ItemCarrito(calculadora, 2));
 		carrito1.agregarProducto(new ItemCarrito(notebook, 1));
@@ -51,11 +51,13 @@ public class CarritoTest {
 		Proveedor samsung = new Proveedor("Samsung", "Florida 731, C1054 CABA", "30-68412579-2", "0800-555-7267",
 				"samsung@samsung.com");
 
-		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5);
+		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5,"linkImagen");
 
 		Promocion cupon = new Cupon("123123", LocalDate.of(2022, 10, 30), false, 0.1,samsung);
 		
 		Collection<Promocion> promociones = new ArrayList<Promocion>();
+		Cliente carolina = new Cliente("Carolina", "Rinaldi", TipoDocumento.DNI, "33334432", 
+				LocalDate.of(1988, 10, 30), new Carrito() , true, new ArrayList<OrdenDeCompra>());
 		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>(), 0, promociones);
 		
 		carrito1.agregarProducto(new ItemCarrito(notebook, 1));
@@ -70,12 +72,14 @@ public class CarritoTest {
 		Proveedor samsung = new Proveedor("Samsung", "Florida 731, C1054 CABA", "30-68412579-2", "0800-555-7267",
 				"samsung@samsung.com");
 
-		Producto smartTv = new Producto("SmartTV", 20000.0, samsung, 10);
+		Producto smartTv = new Producto("SmartTV", 20000.0, samsung, 10,"linkImagen");
 		
 		Promocion debito = new MedioDePago(MetodoDePago.DEBITO, 0.15);
 		
 		Collection<Promocion> promociones = new ArrayList<Promocion>();
-		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>(), 0, promociones);
+		Cliente carolina = new Cliente("Carolina", "Rinaldi", TipoDocumento.DNI, "33334432", 
+				LocalDate.of(1988, 10, 30), new Carrito() , true, new ArrayList<OrdenDeCompra>());
+		Carrito carrito1 = new Carrito( new ArrayList<ItemCarrito>(), 0, promociones);
 		
 		
 		carrito1.agregarProducto(new ItemCarrito(smartTv, 1));
@@ -92,16 +96,17 @@ public class CarritoTest {
 		Proveedor casio = new Proveedor("Casio", "Av. Corrientes 456 Oficina 64, C1043 CABA", "30-86411111-4",
 				"011 5252-3434", "casio@casio.com");
 
-		Producto smartTv = new Producto("SmartTV", 20000.0, samsung, 10);
-		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5);
-		Producto calculadora = new Producto("Calculadora", 500.0, casio, 20);
-		Producto reloj = new Producto("SmartWatch", 500.0, samsung, 8);
+		Producto smartTv = new Producto("SmartTV", 20000.0, samsung, 10,"linkImagen");
+		Producto notebook = new Producto("Notebook Dell", 50000.0, samsung, 5,"linkImagen");
+		Producto calculadora = new Producto("Calculadora", 500.0, casio, 20,"linkImagen");
+		Producto reloj = new Producto("SmartWatch", 500.0, samsung, 8,"linkImagen");
 
 		
 		Collection<Promocion> promociones = new ArrayList<Promocion>();
-		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>(), 0, promociones);
 		Cliente carolina = new Cliente("Carolina", "Rinaldi", TipoDocumento.DNI, "33334432", 
-				LocalDate.of(1988, 10, 30), carrito1 , true, new ArrayList<OrdenDeCompra>());
+				LocalDate.of(1988, 10, 30), new Carrito() , true, new ArrayList<OrdenDeCompra>());
+		Carrito carrito1 = new Carrito(new ArrayList<ItemCarrito>(), 0, promociones);
+		
 		
 		Promocion membresiaPlata = new Membresia(carolina, 0.20);
 		

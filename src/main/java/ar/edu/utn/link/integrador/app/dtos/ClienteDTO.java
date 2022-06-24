@@ -16,8 +16,8 @@ public interface ClienteDTO {
 	@Value("#{target.nombre} #{target.apellido}")
 	String getNombreCompleto();
 	
-	@Value("#{target.comprasRealizadas.size()")
-	int cantComprasRealizadas();
+	//@Value("#{target.comprasRealizadas.size()")
+	//int cantComprasRealizadas();
 	
 	@Value("#{target.comprasRealizadas}")
 	List<OrdenDeCompra> getComprasRealizadas();

@@ -43,4 +43,22 @@ public class ItemCarrito {
 		this.cantidad = cantidad;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public ItemCarrito() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "ItemCarrito [producto=" + producto + ", cantidad=" + cantidad + "]";
+	}
+
 }

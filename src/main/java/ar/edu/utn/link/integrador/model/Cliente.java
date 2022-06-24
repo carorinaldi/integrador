@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 public class Cliente {
 
@@ -37,7 +39,8 @@ public class Cliente {
 
 	@OneToMany
 	private List<OrdenDeCompra> comprasRealizadas;
-	private RolNombre rol = RolNombre.CLIENTE;
+	//@Enumerated(EnumType.STRING)
+	//private RolNombre rol = RolNombre.CLIENTE;
 
 	public Cliente(@NotBlank String nombre, String apellido, TipoDocumento tipoDocumento, String nroDocumento,
 			LocalDate fechaDeNacimiento, Carrito carritoDeCompras, boolean esMiembro,
@@ -126,13 +129,13 @@ public class Cliente {
 		this.esMiembro = esMiembro;
 	}
 
-	public RolNombre getRol() {
-		return rol;
-	}
-
-	public void setRol(RolNombre rol) {
-		this.rol = rol;
-	}
+//	public RolNombre getRol() {
+//		return rol;
+//	}
+//
+//	public void setRol(RolNombre rol) {
+//		this.rol = rol;
+//	}
 
 	public void agregarACarrito(ItemCarrito unItem) throws NoHayStockException {
 		carritoDeCompras.agregarProducto(unItem);

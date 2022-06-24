@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Carrito {
@@ -112,11 +113,6 @@ public class Carrito {
 		}
 	}
 
-//	public void aplicarPromocion(Promocion unaPromocion) throws NoSePuedeAplicarCuponException {
-//		subtotal *= 1 - unaPromocion.descuento();
-//
-//	}
-
 	public void contiene(Proveedor proveedor) {
 		itemsCarrito.stream().map(item -> item.getProducto().getProveedor()).anyMatch(x -> x.equals(proveedor));
 	}
@@ -124,5 +120,6 @@ public class Carrito {
 	public void vaciarCarrito() {
 		itemsCarrito.clear();
 	}
+
 
 }

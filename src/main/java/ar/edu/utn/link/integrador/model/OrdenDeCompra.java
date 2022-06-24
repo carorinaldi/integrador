@@ -61,12 +61,6 @@ public class OrdenDeCompra {
 		this.total = total;
 	}
 
-	public OrdenDeCompra(LocalDate fecha, double total) {
-		super();
-		this.fecha = fecha;
-		this.total = total;
-	}
-
 	public OrdenDeCompra() {
 		super();
 		// TODO Auto-generated constructor stub

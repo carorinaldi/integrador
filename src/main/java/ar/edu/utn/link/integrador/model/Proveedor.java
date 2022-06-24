@@ -1,5 +1,7 @@
 package ar.edu.utn.link.integrador.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -78,5 +80,32 @@ public class Proveedor {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Proveedor [razonSocial=" + razonSocial + ", direccion=" + direccion + ", cuit=" + cuit + ", telefono="
+				+ telefono + ", email=" + email + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cuit, direccion, email, id, razonSocial, telefono);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Proveedor other = (Proveedor) obj;
+		return Objects.equals(cuit, other.cuit) && Objects.equals(direccion, other.direccion)
+				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(razonSocial, other.razonSocial) && Objects.equals(telefono, other.telefono);
+	}
+	
+	
 
 }

@@ -7,6 +7,8 @@ public interface ProveedorDTO {
 	
 	String getRazonSocial();
 	
+	String getCuit();
+	
 
 
 }
